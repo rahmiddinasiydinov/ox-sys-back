@@ -11,10 +11,16 @@ import { JwtStrategy } from './jwt.strategy';
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: async (config: ConfigService) =>({
-        secret: config.get('JWT_SECRET') || 'secret',
+      useFactory: async (config: ConfigService) =>{
+        const jwtSecret = config.get<string>('JWT_SECRET');
+        if(!jwtSecret) {
+          throw new Error('JWT_SECRET is not defined');
+        }
+        return {
+        secret: jwtSecret,
         signOptions: { expiresIn: '1d' },
-      }),
+      }
+      },
       inject: [ConfigService],
     }),
   ],

@@ -7,6 +7,6 @@ export class VerifyDto {
 
   @IsString()
   @IsNotEmpty()
-  @Length(4, 6) // Assuming OTP is 4-6 digits
+  @Length(4, 6)
   otp: string;
 }

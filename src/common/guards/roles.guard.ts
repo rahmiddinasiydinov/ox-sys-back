@@ -15,11 +15,6 @@ export class RolesGuard implements CanActivate {
       return true;
     }
     const { user } = context.switchToHttp().getRequest();
-    // Allow admin to access manager routes if logical? 
-    // Requirement implies specific roles.
-    // If I tag @ManagerOnly, it checks validation for 'manager'.
-    // If admin should access, I should tag @ManagerOnly as ['manager', 'admin'].
-    // I will do that in the decorator.
     return requiredRoles.some((role) => user.role === role);
   }
 }

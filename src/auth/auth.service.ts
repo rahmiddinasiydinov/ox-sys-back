@@ -22,9 +22,8 @@ export class AuthService {
       });
     }
 
-    // Generate Mock OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const otpExpiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 mins
+    const otpExpiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
 
     await this.prisma.user.update({
       where: { id: user.id },
@@ -42,7 +41,6 @@ export class AuthService {
       throw new UnauthorizedException('Invalid or expired OTP');
     }
 
-    // Clear OTP
     await this.prisma.user.update({
       where: { id: user.id },
       data: { otp: null, otpExpiresAt: null },

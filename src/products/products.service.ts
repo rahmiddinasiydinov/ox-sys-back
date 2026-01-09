@@ -15,6 +15,10 @@ export class ProductsService {
       throw new BadRequestException('Size cannot be greater than 20');
     }
 
+    if (user.role !== 'manager') {
+        throw new ForbiddenException('Only managers can get products');
+    }
+
     if (!user.companyId) {
         throw new ForbiddenException('User is not attached to any company');
     }
