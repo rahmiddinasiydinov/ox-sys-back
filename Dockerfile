@@ -44,11 +44,15 @@ COPY --from=builder /app/dist ./dist
 # Create data directory for SQLite
 RUN mkdir -p /app/data
 
+# Copy start script
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
+
 # Set environment variables
 ENV NODE_ENV=production
 
 # Expose port
 EXPOSE 5000
 
-# Start the application
-CMD ["node", "dist/main"]
+# Use entrypoint script to run migrations and start app
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
