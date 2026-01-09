@@ -48,7 +48,7 @@ npm run build
 npm run start:prod
 ```
 
-Ilova **http://localhost:3001** portida ishlaydi.
+Dastur **http://localhost:3001** portida ishlaydi.
 
 ---
 
